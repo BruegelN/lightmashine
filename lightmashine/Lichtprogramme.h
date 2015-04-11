@@ -37,7 +37,7 @@ byte led_pin_mapping[PIN_ANZAHL] =
 
 
 // Licht-Programme
-prog_uchar leds[][PIN_ANZAHL] PROGMEM = {
+const byte leds[][PIN_ANZAHL] PROGMEM = {
 
 // Vorlagen zum kopieren:
 //  {  X,  X,  X,  X,      X,  X,  X,  X,       X,  X,  X,      X,  X,  X,},
