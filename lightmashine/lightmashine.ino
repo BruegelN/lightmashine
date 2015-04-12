@@ -80,7 +80,7 @@ void setup() {
 
 
 void switchToSelectedModel() {
-  byte model = 0;
+  uint8_t model = 0;
   bool selected = false;
   while (!selected && modelSelectPins[model] != NICHT_DA) {
     if (digitalRead(modelSelectPins[model]) == HIGH) {
@@ -172,7 +172,7 @@ int setupProgramStarts() {
 
 
 
-bool endOfProgramChain(byte ledValue) {
+bool endOfProgramChain(uint8_t ledValue) {
   return ledValue == FIN || ledValue == MODEL_WECHSEL;
 }
 
@@ -314,7 +314,7 @@ void copyFrameToLedState() {
 
 
 
-byte readLeds(int lineNr, int rowNr) {
+uint8_t readLeds(int lineNr, int rowNr) {
   return pgm_read_byte_near(&(leds[lineNr][rowNr]));
 }
 
