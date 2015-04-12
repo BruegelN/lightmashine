@@ -9,24 +9,24 @@
 
 class SimPwmLed: public Led {
   public:
-    SimPwmLed(byte pin);
-    void set(byte percent);
+    SimPwmLed(uint8_t pin);
+    void set(uint8_t percent);
     void update();
   private:
-    void fastWrite(byte newState);
+    void fastWrite(uint8_t newState);
     
-    byte _pin;
+    uint8_t _pin;
     int _updatesBetweenFrames;
     int _updatesPerTargetLightnessPoint;
     int _updatesUntilNextTargetLightPoint;
     bool _increasing;
 
-    byte _fromTargetLightness;
-    byte _toTargetLightness;
+    uint8_t _fromTargetLightness;
+    uint8_t _toTargetLightness;
 
     int _targetLightness;
-    byte _counter;
-    byte _state;
+    uint8_t _counter;
+    uint8_t _state;
 };
 
 #endif

@@ -7,12 +7,12 @@
 
 class PwmLed: public Led {
   public:
-    PwmLed(byte pin);
-    void set(byte percent);
+    PwmLed(uint8_t pin);
+    void set(uint8_t percent);
     void update();
   private:
-    byte _pin;
-    byte _oldPercent;
+    uint8_t _pin;
+    uint8_t _oldPercent;
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "SimPwmLed.h"
 
-SimPwmLed::SimPwmLed(byte pin) {
+SimPwmLed::SimPwmLed(uint8_t pin) {
    _pin = pin;
    pinMode(pin, OUTPUT);
    
@@ -18,7 +18,7 @@ SimPwmLed::SimPwmLed(byte pin) {
    _state = LOW;
 }
 
-void SimPwmLed::set(byte percent) {
+void SimPwmLed::set(uint8_t percent) {
   bool immediate = false;
   
   if (percent == _) {
@@ -87,7 +87,7 @@ void SimPwmLed::update() {
   _updatesBetweenFrames++;
 }
 
-void SimPwmLed::fastWrite(byte newState) {
+void SimPwmLed::fastWrite(uint8_t newState) {
   if (_state != newState) {
       digitalWrite(_pin, newState);
      _state = newState;

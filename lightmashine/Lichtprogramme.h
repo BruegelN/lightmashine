@@ -23,7 +23,7 @@
 // die LEDs, zum bequemen LED-Programm bauen spaeter.
 // an die jeweilige Position kommt die Pin-Nummer
 // an der die LED angeschlossen ist.
-byte led_pin_mapping[PIN_ANZAHL] =
+uint8_t led_pin_mapping[PIN_ANZAHL] =
 // Vorne links      Vorne rechts   Hinten Links    Hinten Rechts
 // 
 // B  B  w  w       w  w  B  B     A  B  I           I  B  A
@@ -37,7 +37,7 @@ byte led_pin_mapping[PIN_ANZAHL] =
 
 
 // Licht-Programme
-const byte leds[][PIN_ANZAHL] PROGMEM = {
+const uint8_t leds[][PIN_ANZAHL] PROGMEM = {
 
 // Vorlagen zum kopieren:
 //  {  X,  X,  X,  X,      X,  X,  X,  X,       X,  X,  X,      X,  X,  X,},
@@ -190,18 +190,18 @@ const byte leds[][PIN_ANZAHL] PROGMEM = {
 // 2 - fuer Umschalten per Knopf
 #define SWITCH_TYPE 2
 
-byte modelSelectPins[] = {NICHT_DA};
-byte led_pin_mapping_2[PIN_ANZAHL] =
+uint8_t modelSelectPins[] = {NICHT_DA};
+uint8_t led_pin_mapping_2[PIN_ANZAHL] =
  {12,10,11,     6, 9, 13,    2, 3, 4,         7, 5, 8,   NICHT_DA, NICHT_DA};
 // {12,10,NICHT_DA, NICHT_DA, NICHT_DA, NICHT_DA,  NICHT_DA, NICHT_DA, NICHT_DA, NICHT_DA, NICHT_DA, NICHT_DA,   NICHT_DA, NICHT_DA};
 
-byte led_pin_mapping_3[PIN_ANZAHL] = { };
+uint8_t led_pin_mapping_3[PIN_ANZAHL] = { };
  
  
-byte led_pin_mapping_4[PIN_ANZAHL] = { };
+uint8_t led_pin_mapping_4[PIN_ANZAHL] = { };
 
 
  
-byte led_pin_mapping_5[PIN_ANZAHL] = { };
+uint8_t led_pin_mapping_5[PIN_ANZAHL] = { };
 
 
