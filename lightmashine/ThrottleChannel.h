@@ -4,6 +4,13 @@
 #include "Arduino.h"
 
 
+/*
+*
+* For more informaition (only german):
+* http://www.mikrocontroller.net/articles/AVR_Interrupt_Routinen_mit_C%2B%2B
+*
+*/
+
 class ThrottleChannel {
 
   class ThrottleInterrupt {
