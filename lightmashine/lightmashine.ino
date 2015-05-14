@@ -18,6 +18,7 @@
 #include "PwmLed.h"
 #include "SimPwmLed.h"
 #include "NoopLed.h"
+#include "ThrottleChannel.h"
 
 
 #define MAX_PROGRAMS 50
@@ -44,6 +45,8 @@ int frame = -1;
 ************************************************************************************/
 
 RecieverChannel *reciever = new RecieverChannel(SIG_PIN, RECIEVER_MIN, RECIEVER_MAX);
+ThrottleChannel *throttle = new ThrottleChannel(A1);
+
 FlagState *powerState;
 Counter *lightProgramSelect;
 
@@ -207,6 +210,9 @@ int currentIterations = iterationsToMatchUpdatePeriod;
 long lastUpdate = millis();
 long globalNow = millis();
 void loop() {
+
+  DEBUG("Value of throttle signal: "+String(throttle->getValue()));
+  DEBUG("The Pin our throttle signal is attached to: "+String(throttle->getAttachedPin()));
   counter++;
   currentIterations--;
   reciever->read();
