@@ -21,7 +21,8 @@ class ThrottleChannel {
     private:
 		  static ThrottleChannel* ownerChannel;
       /*
-      __vector_4 is just the interrupt vector for analoge pins
+      __vector_4 is just the interrupt vector for analoge pins on Atmega 328p
+      If you try attach the interrupt to other pins you might have an unhandled interrupt which causes a reset.
       TODO map pins to interrupt verctors !
       */
 		  static void serviceRoutine() __asm__("__vector_4") __attribute__((__signal__, __used__, __externally_visible__));
