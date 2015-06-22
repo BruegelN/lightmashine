@@ -41,7 +41,7 @@ class ThrottleChannel {
   private:
     /* prevent compiler optimization, because it will be modyfied in ISR so it need's to be "accessible from somewhere else" */
     volatile uint32_t _tmpValue;
-    volatile uint16_t _value;
+    uint16_t _value;
     const uint8_t _pin;
 
 };

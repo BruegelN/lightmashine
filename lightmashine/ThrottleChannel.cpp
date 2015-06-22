@@ -23,7 +23,7 @@ void ThrottleChannel::ThrottleInterrupt::serviceRoutine(){
     		ownerChannel->_tmpValue = micros();
   		}else{
   			// else it just finished so we can calculate the signal time by substract the actual time with the start time
-    		ownerChannel->_value = (uint16_t)(micros() - ownerChannel->_tmpValue);
+    		ownerChannel->_tmpValue = (uint16_t)(micros() - ownerChannel->_tmpValue);
     	} 
 
 	}
@@ -59,7 +59,14 @@ const uint8_t ThrottleChannel::getAttachedPin() {
 }
 
 uint16_t ThrottleChannel::getValue() {
-	
+
+	// turn off interupts
+	cli();
+	// copy the value
+	_value = _tmpValue;
+	// turn interupts back on
+	sei();
+
 	return _value;
 
 }
