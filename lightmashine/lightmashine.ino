@@ -47,6 +47,8 @@ int frame = -1;
 RecieverChannel *reciever = new RecieverChannel(SIG_PIN, RECIEVER_MIN, RECIEVER_MAX);
 ThrottleChannel *throttle = new ThrottleChannel(A1);
 
+uint16_t throttleSignal;
+
 FlagState *powerState;
 Counter *lightProgramSelect;
 
@@ -211,8 +213,8 @@ long lastUpdate = millis();
 long globalNow = millis();
 void loop() {
 
-  DEBUG("Value of throttle signal: "+String(throttle->getValue()));
-  DEBUG("The Pin our throttle signal is attached to: "+String(throttle->getAttachedPin()));
+  DEBUG(throttle->getValue());
+
   counter++;
   currentIterations--;
   reciever->read();
@@ -246,7 +248,7 @@ void loop() {
         deactivateLightMashine();
       }
     }
-    
+
     if (lightProgramSelect->hasChanged()) {
       DEBUG("light program change " + String(lightProgramSelect->getCount()));
       frame = programStarts[lightProgramSelect->getCount()];
@@ -323,4 +325,3 @@ void copyFrameToLedState() {
 uint8_t readLeds(int lineNr, int rowNr) {
   return pgm_read_byte_near(&(leds[lineNr][rowNr]));
 }
-
