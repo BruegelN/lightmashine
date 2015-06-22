@@ -12,6 +12,11 @@ void ThrottleChannel::ThrottleInterrupt::record(ThrottleChannel *channel){
 
 void ThrottleChannel::ThrottleInterrupt::serviceRoutine(){
 
+	/*
+	* TODO: first check if the right pin really changed,
+	* because there might be more than one interrupt pin on a specific PORT
+	*/
+
 	if(ownerChannel != NULL){
 		if(digitalRead(ownerChannel->_pin)){
 			// if the pin is HIGH it means the signal just rised so we start to record time
