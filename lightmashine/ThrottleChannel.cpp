@@ -28,11 +28,21 @@ void ThrottleChannel::ThrottleInterrupt::serviceRoutine(){
 ThrottleChannel::ThrottleChannel(uint8_t pin):
 _pin(pin)
 {
+	ThrottleInterrupt::record(this);
+
+	_value = NULL;
+	_tmpValue = NULL;
 
 	pinMode(_pin, INPUT_PULLUP);
-	_value = NULL;
 
-	ThrottleInterrupt::record(this);
+	// some handy Arduino macros seen at: http://playground.arduino.cc/Main/PinChangeInterrupt
+  // enable pin
+  *digitalPinToPCMSK(_pin) |= bit (digitalPinToPCMSKbit(_pin));
+  // clear any outstanding interrupt
+  PCIFR  |= bit (digitalPinToPCICRbit(_pin));
+  // enable interrupt for the group
+  PCICR  |= bit (digitalPinToPCICRbit(_pin));
+
 	// enanble gobal interupts
 	sei();
 }
