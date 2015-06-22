@@ -20,10 +20,10 @@ void ThrottleChannel::ThrottleInterrupt::serviceRoutine(){
 	if(ownerChannel != NULL){
 		if(digitalRead(ownerChannel->_pin)){
 			// if the pin is HIGH it means the signal just rised so we start to record time
-    		ownerChannel->_tmpValue = micros();
+    		ownerChannel->_timeRising = micros();
   		}else{
   			// else it just finished so we can calculate the signal time by substract the actual time with the start time
-    		ownerChannel->_tmpValue = (uint16_t)(micros() - ownerChannel->_tmpValue);
+    		ownerChannel->_tmpValue = (uint16_t)(micros() - ownerChannel->_timeRising);
     	} 
 
 	}
@@ -37,6 +37,7 @@ _pin(pin)
 
 	_value = NULL;
 	_tmpValue = NULL;
+	_timeRising = NULL;
 
 	pinMode(_pin, INPUT_PULLUP);
 
