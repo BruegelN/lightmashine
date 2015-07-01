@@ -26,6 +26,8 @@ void ThrottleChannel::ThrottleInterrupt::serviceRoutine(){
     		ownerChannel->_tmpValue = (uint16_t)(micros() - ownerChannel->_timeRising);
     	} 
 
+			ownerChannel->_hasNewValue = true;
+
 	}
 
 }
@@ -38,6 +40,7 @@ _pin(pin)
 	_value = NULL;
 	_tmpValue = NULL;
 	_timeRising = NULL;
+	_hasNewValue = false;
 
 	pinMode(_pin, INPUT_PULLUP);
 
@@ -61,6 +64,9 @@ const uint8_t ThrottleChannel::getAttachedPin() {
 
 uint16_t ThrottleChannel::getValue() {
 
+	// because we will get the newest value by calling this funktion
+	_hasNewValue = false;
+
 	// turn off interupts
 	cli();
 	// copy the value
@@ -69,5 +75,11 @@ uint16_t ThrottleChannel::getValue() {
 	sei();
 
 	return _value;
+
+}
+
+bool ThrottleChannel::hasNewValue(){
+
+	return _hasNewValue;
 
 }

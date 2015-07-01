@@ -33,10 +33,10 @@ class ThrottleChannel {
   friend ThrottleInterrupt;
 
   public:
-    ThrottleChannel();
     ThrottleChannel(uint8_t pin);
     const uint8_t getAttachedPin();
     uint16_t getValue();
+    bool hasNewValue();
 
   private:
     /* prevent compiler optimization, because it will be modyfied in ISR so it need's to be "accessible from somewhere else" */
@@ -44,6 +44,7 @@ class ThrottleChannel {
     volatile uint32_t _tmpValue;
     uint16_t _value;
     const uint8_t _pin;
+    bool _hasNewValue;
 
 };
 #endif  /* __THROTTLE_H__ */
