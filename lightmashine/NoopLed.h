@@ -6,8 +6,8 @@
 
 class NoopLed: public Led {
   public:
-    NoopLed(byte pin);
-    void set(byte percent);
+    NoopLed(uint8_t pin);
+    void set(uint8_t percent);
     void update();
 };
 

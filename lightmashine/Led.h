@@ -3,7 +3,7 @@
 
 class Led {
   public:
-    virtual void set(byte percent) = 0;
+    virtual void set(uint8_t percent) = 0;
     virtual void update() = 0;
 };
 

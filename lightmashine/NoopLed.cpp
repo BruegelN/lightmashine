@@ -1,9 +1,9 @@
 #include "NoopLed.h"
 
-NoopLed::NoopLed(byte pin) {
+NoopLed::NoopLed(uint8_t pin) {
 }
 
-void NoopLed::set(byte percent) {
+void NoopLed::set(uint8_t percent) {
 }
 
 void NoopLed::update() {
