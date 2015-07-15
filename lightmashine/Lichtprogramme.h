@@ -173,6 +173,8 @@ const uint8_t leds[][PIN_ANZAHL] PROGMEM = {
 // Der Pin, an dem der Empfaenger angeschlossen ist.
 #define SIG_PIN A0
 
+#define THROTTLE_PIN A1
+
 // Die Signalwerte, die der Empfaenger fuer mindest und maximal Wert uebermittelt.
 #define RECIEVER_MIN 1078
 #define RECIEVER_MAX 1885
