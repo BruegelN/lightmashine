@@ -19,6 +19,7 @@
 #include "SimPwmLed.h"
 #include "NoopLed.h"
 #include "ThrottleChannel.h"
+#include "EepromAdapter.h"
 
 
 #define MAX_PROGRAMS 50
@@ -44,8 +45,14 @@ int frame = -1;
 *********************          Setup      *******************************************
 ************************************************************************************/
 
+EepromAdapter *eepromAdapter = new EepromAdapter();
 RecieverChannel *reciever = new RecieverChannel(SIG_PIN, RECIEVER_MIN, RECIEVER_MAX);
-ThrottleChannel *throttle = new ThrottleChannel(A1);
+ThrottleChannel *throttle = new ThrottleChannel(THROTTLE_PIN,
+                                                eepromAdapter->getMinThrottle(),
+                                                eepromAdapter->getMaxThrottle(),
+                                                eepromAdapter->getNeutralThrottle()
+                                                );
+
 
 uint16_t throttleSignal;
 
@@ -75,6 +82,11 @@ void setup() {
   setupLedState();
   
   resetLedState();
+
+  if(!eepromAdapter->holdsReasonableValues()){
+    // TODO calibrate ThrottleChannel with min, max and neutral values.
+
+  }
 
   if (START_WITH_LIGHT_ON) {
     activateLightMashine();
@@ -214,6 +226,14 @@ long globalNow = millis();
 void loop() {
 
   DEBUG(throttle->getValue());
+
+  if(throttle->hasNewValue()){
+      // TODO do the fancy brakelight and anti lag stuff here !
+      throttleSignal = throttle->getValue();
+
+
+
+  }
 
   counter++;
   currentIterations--;

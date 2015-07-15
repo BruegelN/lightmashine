@@ -32,7 +32,11 @@ void ThrottleChannel::ThrottleInterrupt::serviceRoutine(){
 
 }
 
-ThrottleChannel::ThrottleChannel(uint8_t pin):
+ThrottleChannel::ThrottleChannel(uint8_t pin,
+																uint16_t minValue,
+																uint16_t maxValue,
+																uint16_t neutralValue
+																):
 _pin(pin)
 {
 	ThrottleInterrupt::record(this);
@@ -41,6 +45,9 @@ _pin(pin)
 	_tmpValue = NULL;
 	_timeRising = NULL;
 	_hasNewValue = false;
+	_minValue = minValue;
+	_maxValue = maxValue;
+	_neutralValue = neutralValue;
 
 	pinMode(_pin, INPUT_PULLUP);
 
@@ -81,5 +88,20 @@ uint16_t ThrottleChannel::getValue() {
 bool ThrottleChannel::hasNewValue(){
 
 	return _hasNewValue;
+
+}
+uint16_t ThrottleChannel::getMinValue(){
+
+	return _minValue;
+
+}
+uint16_t ThrottleChannel::getMaxValue(){
+
+	return _maxValue;
+
+}
+uint16_t ThrottleChannel::getNeutralValue(){
+
+	return _neutralValue;
 
 }
