@@ -74,12 +74,7 @@ uint16_t ThrottleChannel::getValue() {
 	// because we will get the newest value by calling this funktion
 	_hasNewValue = false;
 
-	// turn off interupts
-	cli();
-	// copy the value
-	_value = _tmpValue;
-	// turn interupts back on
-	sei();
+	copyValue();
 
 	return _value;
 
@@ -103,5 +98,15 @@ uint16_t ThrottleChannel::getMaxValue(){
 uint16_t ThrottleChannel::getNeutralValue(){
 
 	return _neutralValue;
+
+}
+void ThrottleChannel::copyValue(){
+
+	// turn off interupts
+	cli();
+	// copy the value
+	_value = _tmpValue;
+	// turn interupts back on
+	sei();
 
 }

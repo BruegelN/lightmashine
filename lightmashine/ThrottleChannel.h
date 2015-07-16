@@ -62,6 +62,8 @@ class ThrottleChannel {
     uint16_t _maxValue;
     uint16_t _neutralValue;
 
+    // copy newest signal to variable which is not shared with ISR
+    void copyValue();
 
 };
 #endif  /* __THROTTLE_H__ */
