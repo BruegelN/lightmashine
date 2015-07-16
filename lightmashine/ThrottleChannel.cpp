@@ -49,6 +49,8 @@ _pin(pin)
 	_maxValue = maxValue;
 	_neutralValue = neutralValue;
 
+	updateReverseMode();
+
 	pinMode(_pin, INPUT_PULLUP);
 
 	// some handy Arduino macros seen at: http://playground.arduino.cc/Main/PinChangeInterrupt
@@ -108,5 +110,14 @@ void ThrottleChannel::copyValue(){
 	_value = _tmpValue;
 	// turn interupts back on
 	sei();
+
+}
+void ThrottleChannel::updateReverseMode(){
+
+	if(_minValue > _maxValue){
+		_reverseMode = true;
+	}else{
+		_reverseMode =false;
+	}
 
 }

@@ -58,12 +58,23 @@ class ThrottleChannel {
     const uint8_t _pin;
     bool _hasNewValue;
 
+    /*
+    * Regularly the neutralValue is around 1500.
+    * A minValue between 900 and neutralValue
+    * and maxValue between neutralValue and 2100
+    * is considered to be normal mode.
+    * If it is the other way around we call this mode reverse.
+    */
+    bool _reverseMode;
+
     uint16_t _minValue;
     uint16_t _maxValue;
     uint16_t _neutralValue;
 
     // copy newest signal to variable which is not shared with ISR
     void copyValue();
+
+    void updateReverseMode();
 
 };
 #endif  /* __THROTTLE_H__ */
