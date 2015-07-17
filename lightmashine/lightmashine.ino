@@ -20,6 +20,7 @@
 #include "NoopLed.h"
 #include "ThrottleChannel.h"
 #include "EepromAdapter.h"
+#include "ThrottleCalibrator.h"
 
 
 #define MAX_PROGRAMS 50
@@ -84,9 +85,13 @@ void setup() {
   resetLedState();
 
   if(!eepromAdapter->holdsReasonableValues()){
-    // TODO calibrate ThrottleChannel with min, max and neutral values.
-
+    DEBUG("Before calibration:\nmin Throttle: "+ String(eepromAdapter->getMinThrottle())+"\nmaxThrottle: "+String(eepromAdapter->getMaxThrottle())+"\nneutralThrottle: "+String(eepromAdapter->getNeutralThrottle()));
+    // somehow it's not working when passing ledState and then try to ledState[number]->set(myValue)
+    ThrottleCalibrator calibrator = ThrottleCalibrator(throttle, eepromAdapter, led_pin_mapping, PIN_ANZAHL);
+    calibrator.calibrate();
   }
+
+  DEBUG("Endpoints:\nmin Throttle: "+ String(throttle->getMinValue())+"\nmaxThrottle: "+String(throttle->getMaxValue())+"\nneutralThrottle: "+String(throttle->getNeutralValue()));
 
   if (START_WITH_LIGHT_ON) {
     activateLightMashine();

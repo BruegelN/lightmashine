@@ -74,6 +74,12 @@ class ThrottleChannel {
     // copy newest signal to variable which is not shared with ISR
     void copyValue();
 
+    // to acces the following functions when calibrating
+    friend class ThrottleCalibrator;
+    void setMinValue();
+    void setMaxValue();
+    void setNeutralValue();
+
     void updateReverseMode();
 
 };

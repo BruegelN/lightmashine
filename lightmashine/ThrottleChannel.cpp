@@ -112,6 +112,24 @@ void ThrottleChannel::copyValue(){
 	sei();
 
 }
+void ThrottleChannel::setMinValue(){
+
+	copyValue();
+	_minValue = _value;
+
+}
+void ThrottleChannel::setMaxValue(){
+
+	copyValue();
+	_maxValue = _value;
+
+}
+void ThrottleChannel::setNeutralValue(){
+
+	copyValue();
+	_neutralValue = _value;
+
+}
 void ThrottleChannel::updateReverseMode(){
 
 	if(_minValue > _maxValue){
