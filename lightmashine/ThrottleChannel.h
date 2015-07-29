@@ -5,8 +5,14 @@
 
 
 /*
+* The ThrottleChannel class allows to get all necessary information
+* about the real signal from the radio's throttle channel.
+* We don't need to care about exacte singal values, because ThrottleChannel will do this for us.
 *
-* For more informaition (only german):
+* The ThrottleInterrupt class is used to catch the real interrupt cycles.
+* The ThrottleInterrupt::serviceRoutine is basicly the InterruptServiceRoutine where the interrupts are measured.
+* Therefor we don't need to use the C-Style ISR() macro in the main programm.
+* For more informaition on how to deal with interrupts (on AVR's) in an C++ way (but sadly german):
 * http://www.mikrocontroller.net/articles/AVR_Interrupt_Routinen_mit_C%2B%2B
 *
 */
@@ -49,7 +55,7 @@ class ThrottleChannel {
     uint16_t getNeutralValue();
 
   private:
-    /* prevent compiler optimization, because it will be modyfied in ISR so it need's to be "accessible from somewhere else" */
+    // prevent compiler optimization, because it will be modyfied in ISR so it need's to be "accessible from somewhere else"
     volatile uint32_t _timeRising;
     volatile uint32_t _tmpValue;
 
