@@ -21,6 +21,7 @@
 #include "ThrottleChannel.h"
 #include "EepromAdapter.h"
 #include "ThrottleCalibrator.h"
+#include "Brakelight.h"
 
 
 #define MAX_PROGRAMS 50
@@ -53,6 +54,7 @@ ThrottleChannel *throttle = new ThrottleChannel(THROTTLE_PIN,
                                                 eepromAdapter->getMaxThrottle(),
                                                 eepromAdapter->getNeutralThrottle()
                                                 );
+Brakelight brakelight = Brakelight(BRAKELIGHT_PIN);
 
 
 uint16_t throttleSignal;
@@ -236,6 +238,11 @@ void loop() {
       // TODO do the fancy brakelight and anti lag stuff here !
       throttleSignal = throttle->getValue();
 
+      if(throttle->isBraking()){
+        brakelight.turnOn();
+      }else{
+        brakelight.turnOff();
+      }
 
 
   }

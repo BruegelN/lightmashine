@@ -4,6 +4,9 @@
 #include "Arduino.h"
 
 
+// neutral + - this value is still considered neutral e.g. in isBraking-method
+#define THROTTLE_NEUTRAL_RANGE 10
+
 /*
 * The ThrottleChannel class allows to get all necessary information
 * about the real signal from the radio's throttle channel.
@@ -53,6 +56,15 @@ class ThrottleChannel {
     uint16_t getMinValue();
     uint16_t getMaxValue();
     uint16_t getNeutralValue();
+
+    /*
+    * ATTENTION: Allways retruns true if between neutral and full reverse!
+    * So if you're driving backwards it will return true, too.
+    * TODO distinguish between really braking and driving backwards.
+    * e.g. on most ESC's you have to "brake" twice to drive backwards
+    * (brake => return to neutral => reverse)
+    */
+    bool isBraking();
 
   private:
     // prevent compiler optimization, because it will be modyfied in ISR so it need's to be "accessible from somewhere else"

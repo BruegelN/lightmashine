@@ -102,6 +102,28 @@ uint16_t ThrottleChannel::getNeutralValue(){
 	return _neutralValue;
 
 }
+
+bool ThrottleChannel::isBraking(){
+
+	/*
+	* Regularly the neutralValue is around 1500.
+	* A minValue between 900 and neutralValue
+	* and maxValue between neutralValue and 2100
+	* is considered to be normal mode.
+	* If it is the other way around we call this mode reverse.
+	*/
+	copyValue();
+
+	if(!_reverseMode && _value<(_neutralValue - THROTTLE_NEUTRAL_RANGE)){
+		return true;
+	}else if (_reverseMode && _value>(_neutralValue + THROTTLE_NEUTRAL_RANGE)){
+		return true;
+	}else{
+		return false;
+	}
+
+}
+
 void ThrottleChannel::copyValue(){
 
 	// turn off interupts
