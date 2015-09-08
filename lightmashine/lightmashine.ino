@@ -87,17 +87,20 @@ void setup() {
   resetLedState();
 
   if(!eepromAdapter->holdsReasonableValues()){
-    DEBUG("Before calibration:\nmin Throttle: "+ String(eepromAdapter->getMinThrottle())+"\nmaxThrottle: "+String(eepromAdapter->getMaxThrottle())+"\nneutralThrottle: "+String(eepromAdapter->getNeutralThrottle()));
+
     // somehow it's not working when passing ledState and then try to ledState[number]->set(myValue)
     ThrottleCalibrator calibrator = ThrottleCalibrator(throttle, eepromAdapter, led_pin_mapping, PIN_ANZAHL);
     calibrator.calibrate();
   }
 
-  DEBUG("Endpoints:\nmin Throttle: "+ String(throttle->getMinValue())+"\nmaxThrottle: "+String(throttle->getMaxValue())+"\nneutralThrottle: "+String(throttle->getNeutralValue()));
-
   if (START_WITH_LIGHT_ON) {
     activateLightMashine();
   }
+
+
+    DEBUG("Endpoints:\nmin Throttle: "+ String(throttle->getMinValue())+"\nmaxThrottle: "+String(throttle->getMaxValue())+"\nneutralThrottle: "+String(throttle->getNeutralValue()));
+    DEBUG("Stored in Eeprom:\nmin Throttle: "+ String(eepromAdapter->getMinThrottle())+"\nmaxThrottle: "+String(eepromAdapter->getMaxThrottle())+"\nneutralThrottle: "+String(eepromAdapter->getNeutralThrottle()));
+
 }
 
 
@@ -232,11 +235,10 @@ long lastUpdate = millis();
 long globalNow = millis();
 void loop() {
 
-  DEBUG(throttle->getValue());
+
 
   if(throttle->hasNewValue()){
       // TODO do the fancy brakelight and anti lag stuff here !
-      throttleSignal = throttle->getValue();
 
       if(throttle->isBraking()){
         brakelight.turnOn();
@@ -257,6 +259,8 @@ void loop() {
     if ((globalNow - lastTime) > 1000) {
       lastTime = globalNow;
       DEBUG(String(counter) + " ips, " + String(iterationsToMatchUpdatePeriod) + " iterations per update, update period = " + String(globalNow - lastUpdate));
+      DEBUG("Thottle signal in percent:"+String(throttle->getValue()));
+      DEBUG("Thottle signal:"+String(throttle->getRawValue()));
       counter = 0;
     }
 

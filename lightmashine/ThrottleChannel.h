@@ -5,7 +5,7 @@
 
 
 // neutral + - this value is still considered neutral e.g. in isBraking-method
-#define THROTTLE_NEUTRAL_RANGE 10
+#define THROTTLE_NEUTRAL_RANGE 15
 
 /*
 * The ThrottleChannel class allows to get all necessary information
@@ -50,8 +50,25 @@ class ThrottleChannel {
                     );
 
     const uint8_t getAttachedPin();
-    uint16_t getValue();
+
+    /*
+    * This will only return the measured time in microseconds.
+    * But most of the time the true possition is needed.
+    */
+    uint16_t getRawValue();
     bool hasNewValue();
+
+    /*
+    * This will return the true possition :
+    * +100% => full throttle
+    *    0% => netral
+    * -100% => full brake/ backwards
+    *
+    * For calculating these values min-, max- and neutralValue
+    * are needed and information whether if the ThrottleChannel is in reverseMode.
+    */
+    int8_t getValue();
+
 
     uint16_t getMinValue();
     uint16_t getMaxValue();

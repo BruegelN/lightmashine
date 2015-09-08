@@ -12,20 +12,20 @@ ThrottleCalibrator::ThrottleCalibrator(ThrottleChannel* throttle, EepromAdapter*
 void ThrottleCalibrator::calibrate(){
 
    delay(1000);
-   _eepromAdapter->saveNeutralThrottle(_throttle->getValue());
+   _eepromAdapter->saveNeutralThrottle(_throttle->getRawValue());
    _throttle->setNeutralValue();
-   
+
    ledBlinkToCheck();
 
    delay(3000);
-   _eepromAdapter->saveMaxThrottle(_throttle->getValue());
+   _eepromAdapter->saveMaxThrottle(_throttle->getRawValue());
    _throttle->setMaxValue();
 
    ledBlinkToCheck();
    ledBlinkToCheck();
 
    delay(3000);
-   _eepromAdapter->saveMinThrottle(_throttle->getValue());
+   _eepromAdapter->saveMinThrottle(_throttle->getRawValue());
    _throttle->setMinValue();
 
    ledBlinkToCheck();

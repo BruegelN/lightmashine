@@ -71,7 +71,7 @@ const uint8_t ThrottleChannel::getAttachedPin() {
 
 }
 
-uint16_t ThrottleChannel::getValue() {
+uint16_t ThrottleChannel::getRawValue() {
 
 	// because we will get the newest value by calling this funktion
 	_hasNewValue = false;
@@ -120,6 +120,56 @@ bool ThrottleChannel::isBraking(){
 		return true;
 	}else{
 		return false;
+	}
+
+}
+
+int8_t ThrottleChannel::getValue(){
+
+	getRawValue();
+
+	/*
+	* Regularly the neutralValue is around 1500.
+	* A minValue between 900 and neutralValue
+	* and maxValue between neutralValue and 2100
+	* is considered to be normal mode.
+	* If it is the other way around we call this mode reverse.
+	*/
+
+	if (_value < (_neutralValue + THROTTLE_NEUTRAL_RANGE) && _value > (_neutralValue - THROTTLE_NEUTRAL_RANGE)){
+
+		// If it's in neutrale range we can ignore the reverse mode
+		return 0;
+
+	}else if (_reverseMode){
+
+		if ((_neutralValue + THROTTLE_NEUTRAL_RANGE) <= _value){
+
+			// Backwards therefor negativ
+			return map(_value, (_neutralValue + THROTTLE_NEUTRAL_RANGE), _minValue, 0, -100);
+
+		} else {
+
+			// Forward therefor positiv
+			return map(_value, (_neutralValue - THROTTLE_NEUTRAL_RANGE), _maxValue, 0, 100);
+
+		}
+
+	} else {
+		// Normal mode
+
+		if ((_neutralValue + THROTTLE_NEUTRAL_RANGE) <= _value){
+
+			// Forward therefor positiv
+			return map(_value, (_neutralValue + THROTTLE_NEUTRAL_RANGE), _maxValue, 0, 100);
+
+		} else {
+
+			// Backwards therefor negativ
+			return map(_value, (_neutralValue - THROTTLE_NEUTRAL_RANGE), _minValue, 0, -100);
+
+		}
+
 	}
 
 }
