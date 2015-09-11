@@ -22,6 +22,7 @@
 #include "EepromAdapter.h"
 #include "ThrottleCalibrator.h"
 #include "Brakelight.h"
+#include "Backfire.h"
 
 
 #define MAX_PROGRAMS 50
@@ -54,10 +55,12 @@ ThrottleChannel *throttle = new ThrottleChannel(THROTTLE_PIN,
                                                 eepromAdapter->getMaxThrottle(),
                                                 eepromAdapter->getNeutralThrottle()
                                                 );
-Brakelight brakelight = Brakelight(BRAKELIGHT_PIN);
 
+Brakelight brakelight(BRAKELIGHT_PIN);
 
-uint16_t throttleSignal;
+Backfire backfire(BACKFIRE_PIN);
+
+int8_t throttleSignal = 0;
 
 FlagState *powerState;
 Counter *lightProgramSelect;
@@ -238,15 +241,21 @@ void loop() {
 
 
   if(throttle->hasNewValue()){
-      // TODO do the fancy brakelight and anti lag stuff here !
+      // So let's read the new value
+      throttleSignal = throttle->getValue();
 
-      if(throttle->isBraking()){
+      if(throttleSignal < 0){
+        // braking if throttle signal is negativ
         brakelight.turnOn();
+
+
       }else{
+        // obvious we're not braking
         brakelight.turnOff();
+        // TODO make sure that the LED will be turned off everytime!
+        backfire.checkForActivation(throttleSignal);
+
       }
-
-
   }
 
   counter++;
