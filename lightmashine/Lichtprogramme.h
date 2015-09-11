@@ -177,6 +177,8 @@ const uint8_t leds[][PIN_ANZAHL] PROGMEM = {
 
 #define BRAKELIGHT_PIN A2
 
+#define BACKFIRE_PIN A3
+
 // Die Signalwerte, die der Empfaenger fuer mindest und maximal Wert uebermittelt.
 #define RECIEVER_MIN 1078
 #define RECIEVER_MAX 1885
