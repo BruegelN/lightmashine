@@ -4,12 +4,13 @@
 #include "Arduino.h"
 
 /*
-* This is basically class around an led which is used as brakelight.
-* By now there is only one pin availible to connect to an led.
-* So if you want to use more than one led as brakelight
+* This is basically class around LED's which are used as brakelight.
+* If you want to use more than one led per pin
 * an external transitor is recommended.
 *
-* Maybe it might be cool to support more than one brakelight led later.
+* To support more than one pin
+* an array of pins and the size of the array is needed.
+*
 * Also the ability to use normal taillights as brakelights
 * by increasing their brightnes would be cool.
 *
@@ -18,12 +19,13 @@
 
 class Brakelight{
   public:
-    Brakelight(uint8_t brakelightPin);
+    Brakelight(const uint8_t *pBrakelightArray, const uint8_t brakelightLedCount);
     void turnOn();
     void turnOff();
 
   private:
-    const uint8_t _brakelightPin;
+    const uint8_t *_pBrakelightArray;
+    const uint8_t _brakelightLedCount;
 
 };
 

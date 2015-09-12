@@ -1,16 +1,27 @@
 #include "Backfire.h"
 
-Backfire::Backfire(uint8_t pin):
-_pin(pin),
+Backfire::Backfire(const uint8_t *pBackfireArray, const uint8_t backfireLedCount):
+_pBackfireArray(pBackfireArray),
+_backfireLedCount(backfireLedCount),
 _history {0}
 {
-  pinMode(_pin, OUTPUT);
+  for(uint8_t i = 0; i < _backfireLedCount; i++) {
+
+    pinMode(_pBackfireArray[i],OUTPUT);
+
+  }
 
 }
 
 void Backfire::checkForActivation(int8_t value){
 
-  digitalWrite(_pin,LOW);
+  for(uint8_t i = 0; i < _backfireLedCount; i++) {
+
+    digitalWrite(_pBackfireArray[i],LOW);
+
+  }
+
+
   _history[9] = _history[8];
   _history[8] = _history[7];
   _history[7] = _history[6];
@@ -26,7 +37,11 @@ void Backfire::checkForActivation(int8_t value){
 
     if(_history[9] - _history[0] >= 40){
 
-      digitalWrite(_pin, HIGH);
+      for(uint8_t i = 0; i < _backfireLedCount; i++) {
+
+        digitalWrite(_pBackfireArray[i],HIGH);
+
+      }
 
     }
   }

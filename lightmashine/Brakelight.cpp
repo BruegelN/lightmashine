@@ -1,20 +1,34 @@
 #include "Brakelight.h"
 
-Brakelight::Brakelight(uint8_t brakelightPin):
-_brakelightPin(brakelightPin) {
+Brakelight::Brakelight(const uint8_t *pBrakelightArray, const uint8_t brakelightLedCount):
+_pBrakelightArray(pBrakelightArray),
+_brakelightLedCount(brakelightLedCount)
+{
 
-  pinMode(_brakelightPin, OUTPUT);
+  for(uint8_t i = 0; i < _brakelightLedCount; i++) {
+
+    pinMode(_pBrakelightArray[i],OUTPUT);
+
+  }
 
 }
 
 void Brakelight::turnOn() {
 
-  digitalWrite(_brakelightPin, HIGH);
+  for(uint8_t i = 0; i < _brakelightLedCount; i++) {
+
+    digitalWrite(_pBrakelightArray[i],HIGH);
+
+  }
 
 }
 
 void Brakelight::turnOff() {
 
-  digitalWrite(_brakelightPin, LOW);
+  for(uint8_t i = 0; i < _brakelightLedCount; i++) {
+
+    digitalWrite(_pBrakelightArray[i],LOW);
+
+  }
 
 }

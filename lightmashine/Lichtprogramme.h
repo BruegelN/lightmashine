@@ -175,9 +175,25 @@ const uint8_t leds[][PIN_ANZAHL] PROGMEM = {
 
 #define THROTTLE_PIN A1
 
-#define BRAKELIGHT_PIN A2
+/*
+* Hier werden die Pin-Nummern
+* fuer die LED's, welche spaeter als Bremslicht
+* geschaltet werden sollen eingetragen, jeweils durch Komma getrennt.
+* Es ist darauf zu achten, dass nur Pin's, welche nicht für das Lichprogramm
+* als Backfire oder für Signale vom Empfänger genutzt werden eingetragen werden.
+*/
+const uint8_t led_pin_brakelights[] = { A2, A3 };
 
-#define BACKFIRE_PIN A3
+#define BACKFIRE_PIN A5
+
+/*
+* Hier werden die Pin-Nummern
+* fuer die LED's, welche spaeter als Backfire/ Anti-Lag
+* geschaltet werden sollen eingetragen, jeweils durch Komma getrennt.
+* Es ist darauf zu achten, dass nur Pin's, welche nicht für das Lichprogramm,
+* als Bremslicht oder für Signale vom Empfänger genutzt werden eingetragen werden.
+*/
+const uint8_t led_pin_backfire[] = { A4, A5 };
 
 // Die Signalwerte, die der Empfaenger fuer mindest und maximal Wert uebermittelt.
 #define RECIEVER_MIN 1078

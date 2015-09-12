@@ -4,24 +4,24 @@
 #include "Arduino.h"
 
 /*
-* Backfire will light up a LED when you go fast from
+* Backfire will light up a LED's when you go fast from
 * by placing this LED in a muffler you got backfire effect.
 * On real, turbo charged, cars turbo a simular effect is caused
 * by anti-lag system.
 *
-* It might be cool to support more than one led(=> output pin) later
-* to get different color patterns.
-*
+* To support more than one pin
+* an array of pins and the size of the array is needed.
 */
 
 
 class Backfire {
   public:
-    Backfire(uint8_t pin);
+    Backfire(const uint8_t *pBackfireArray, const uint8_t backfireLedCount);
     void checkForActivation(int8_t valuePercentage);
 
   private:
-    const uint8_t _pin;
+    const uint8_t *_pBackfireArray;
+    const uint8_t _backfireLedCount;
     // for the old values
     int8_t _history[10];
 

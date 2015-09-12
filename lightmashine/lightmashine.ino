@@ -44,6 +44,9 @@ int frame = -1;
 #define DEBUG(X)
 #endif
 
+// Um einfach die Größe unabhängig vom Datentyp zu erhalten
+#define ARRAY_LENGHT(X)  (sizeof(X)/sizeof(X[0]))
+
 /************************************************************************************
 *********************          Setup      *******************************************
 ************************************************************************************/
@@ -56,9 +59,9 @@ ThrottleChannel *throttle = new ThrottleChannel(THROTTLE_PIN,
                                                 eepromAdapter->getNeutralThrottle()
                                                 );
 
-Brakelight brakelight(BRAKELIGHT_PIN);
+Brakelight brakelight(led_pin_brakelights, (uint8_t)ARRAY_LENGHT(led_pin_brakelights));
 
-Backfire backfire(BACKFIRE_PIN);
+Backfire backfire(led_pin_backfire, (uint8_t)ARRAY_LENGHT(led_pin_backfire));
 
 int8_t throttleSignal = 0;
 
