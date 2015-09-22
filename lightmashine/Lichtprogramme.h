@@ -14,7 +14,7 @@
 // Anzahl der Pins, die am Arduino angesteuert werden sollen.
 // Davon haengt die Anzahl Werte ab, die man bei den Lichtprogrammen
 // in der horizontalen angegeben werden.
-#define PIN_ANZAHL 14
+#define PIN_ANZAHL 12
 
 // Pause zwischen der Frames in Millisekunden. Je kleiner, desto schneller.
 #define FRAME_PAUSE 100
@@ -24,139 +24,105 @@
 // an die jeweilige Position kommt die Pin-Nummer
 // an der die LED angeschlossen ist.
 uint8_t led_pin_mapping[PIN_ANZAHL] =
-// Vorne links      Vorne rechts   Hinten Links    Hinten Rechts
-// 
-// B  B  w  w       w  w  B  B     A  B  I           I  B  A
-// l  l  e  e       e  e  l  l     u  l  n           n  l  u
-// i  a  i  i       i  i  a  i     s  i  n           n  i  s
-// n  u  s  s       s  s  u  n     s  n  e           e  n  s
-// k     s  s       s  s     k     e  k  n           n  k  e
-// e                         e     n  e                 e  n
-// r                         r        r                 r
- { 0, 1, 2, 3,      4, 5, 6, 7,    8, 9,10,         11,12,13,};
+// Vorne l/r           Hinten Links    Hinten Rechts
+//
+// B  w     w  B       B  R  R  W      W  R   R   B
+// l  e     e  l       l  o  o  e      e  o   o   l
+// i  i     i  i       i  t  t  i      i  t   t   i
+// n  s     s  n       n        s      s          n
+// k  s     s  k       k        s      s          k
+// e           e       e                          e
+// r           r       r                          r
+ { 0, 1,    2, 3,      4, 5, 6, 7,     8, 9, 10, 11};
 
 
 // Licht-Programme
 const uint8_t leds[][PIN_ANZAHL] PROGMEM = {
 
 // Vorlagen zum kopieren:
-//  {  X,  X,  X,  X,      X,  X,  X,  X,       X,  X,  X,      X,  X,  X,},
-//  {  _,  _,  _,  _,      _,  _,  _,  _,       _,  _,  _,      _,  _,  _,},
+//  { X, X,    X, X,      X, X, X, X,     X, X,  X,  X,},
+//  { _, _,    _, _,      _, _, _, _,     _, _,  _,  _,},
 
-  
+
 /*
-** Modell 1, 8 LEDs vorne, 6 hinten
+** Modell 1, 4 LEDs vorne, 8 hinten
 */
 
- 
+
 /* normal on */
- {  _,  _, 70, 40,     40, 70,  _,  _,      40,  _,  _,      _,  _, 40,},
+ { _, X,    X, _,      _, 70, 70, _,     _, 70,  70,  _,},
  {  PROGRAM_ENDE},
 
-/* normal on, waving headlights */
- {  _,  _, 10, 50,     70, 30,  _,  _,      40,  _,  _,      _,  _, 40,},
- {  _,  _, 20, 60,     60, 40,  _,  _,      45,  _,  _,      _,  _, 45,},
- {  _,  _, 30, 70,     50, 50,  _,  _,      50,  _,  _,      _,  _, 50,},
- {  _,  _, 40, 60,     40, 60,  _,  _,      55,  _,  _,      _,  _, 55,},
- {  _,  _, 50, 50,     30, 70,  _,  _,      60,  _,  _,      _,  _, 60,},
- {  _,  _, 60, 40,     20, 60,  _,  _,      65,  _,  _,      _,  _, 65,},
- {  _,  _, 70, 30,     10, 50,  _,  _,      70,  _,  _,      _,  _, 70,},
- {  _,  _, 60, 20,     20, 40,  _,  _,      65,  _,  _,      _,  _, 65,},
- {  _,  _, 50, 10,     30, 30,  _,  _,      60,  _,  _,      _,  _, 60,},
- {  _,  _, 40, 20,     40, 20,  _,  _,      55,  _,  _,      _,  _, 55,},
- {  _,  _, 30, 30,     50, 10,  _,  _,      50,  _,  _,      _,  _, 50,},
- {  _,  _, 20, 40,     60, 20,  _,  _,      45,  _,  _,      _,  _, 45,},
+/* waving */
+ {  _, 10,  70,  _,    _, 40, 70,  _,     _, 70, 40,  _,},
+ {  _, 20,  60,  _,    _, 45, 65,  _,     _, 65, 45,  _,},
+ {  _, 30,  50,  _,    _, 50, 60,  _,     _, 60, 50,  _,},
+ {  _, 40,  40,  _,    _, 55, 55,  _,     _, 55, 55,  _,},
+ {  _, 50,  30,  _,    _, 60, 50,  _,     _, 50, 60,  _,},
+ {  _, 60,  20,  _,    _, 65, 45,  _,     _, 45, 65,  _,},
+ {  _, 70,  10,  _,    _, 70, 40,  _,     _, 40, 70,  _,},
+ {  _, 60,  20,  _,    _, 65, 45,  _,     _, 45, 65,  _,},
+ {  _, 50,  30,  _,    _, 60, 50,  _,     _, 50, 60,  _,},
+ {  _, 40,  40,  _,    _, 55, 55,  _,     _, 55, 55,  _,},
+ {  _, 30,  50,  _,    _, 50, 60,  _,     _, 60, 50,  _,},
+ {  _, 20,  60,  _,    _, 45, 65,  _,     _, 65, 45,  _,},
  {  PROGRAM_ENDE},
 
-/* full on */
- {  X,  X,  X,  X,      X,  X,  X,  X,       X,  X,  X,      X,  X,  X,},
+/* normal on, with flash lights*/
+ {  X,  X,   X,  X,      X, 70, 70,  _,    _, 70, 70,  X,},
+ {  X,  X,   X,  X,      X, 70, 70,  _,    _, 70, 70,  X,},
+ {  X,  X,   X,  X,      X, 70, 70,  _,    _, 70, 70,  X,},
+ {  X,  X,   X,  X,      X, 70, 70,  _,    _, 70, 70,  X,},
+ {  X,  X,   X,  X,      X, 70, 70,  _,    _, 70, 70,  X,},
+ {  X,  X,   X,  X,      X, 70, 70,  _,    _, 70, 70,  X,},
+ {  X,  X,   X,  X,      X, 70, 70,  _,    _, 70, 70,  X,},
+ {  _,  X,   X,  _,      _, 70, 70,  _,    _, 70, 70,  _,},
+ {  _,  X,   X,  _,      _, 70, 70,  _,    _, 70, 70,  _,},
+ {  _,  X,   X,  _,      _, 70, 70,  _,    _, 70, 70,  _,},
+ {  _,  X,   X,  _,      _, 70, 70,  _,    _, 70, 70,  _,},
+ {  _,  X,   X,  _,      _, 70, 70,  _,    _, 70, 70,  _,},
+ {  _,  X,   X,  _,      _, 70, 70,  _,    _, 70, 70,  _,},
+ {  _,  X,   X,  _,      _, 70, 70,  _,    _, 70, 70,  _,},
  {  PROGRAM_ENDE},
 
-/* flash */
- {  X,  _,  X,  X,      X,  X,  _,  X,       X,  X,  X,      X,  X,  X,},
- {  X,  _, 50, 50,     50, 50,  _,  X,       X,  X,  X,      X,  X,  X,},
- {  _,  _,  X,  X,      X,  X,  _,  _,       X,  _,  X,      X,  _,  X,},
- {  _,  _, 50, 50,     50, 50,  _,  _,       X,  _,  X,      X,  _,  X,},
- {  _,  _, 30, 30,     30, 30,  _,  _,       X,  _,  X,      X,  _,  X,},
- {  X,  _, 10, 10,     10, 10,  _,  X,       X,  X,  X,      X,  X,  X,},
- {  X,  _,  _,  _,      _,  _,  _,  X,       X,  X,  X,      X,  X,  X,},
- {  _,  _,  _,  _,      _,  _,  _,  _,       X,  _,  X,      X,  _,  X,},
- {  _,  _,  _,  _,      _,  _,  _,  _,       X,  _,  X,      X,  _,  X,},
- {  _,  _,  _,  _,      _,  _,  _,  _,       X,  _,  X,      X,  _,  X,}, 
+/* front party, rear waving */
+ {  X,  _,   _,  X,     100,   _,   _,  _,    _,  _,   _, 100,},
+ {  _,  X,   X,  _,      75,   _,   _,  _,    _,  _,   _,  75,},
+ {  X,  _,   _,  X,      50,   _,   _,  _,    _,  _,   _,  50,},
+ {  _,  X,   X,  _,      25,   _,   _,  _,    _,  _,   _,  25,},
+ {  X,  _,   _,  X,       0, 100,   _,  _,    _,  _,  100,  0,},
+ {  _,  X,   X,  _,       _,  75,   _,  _,    _,  _,   75,  _,},
+ {  X,  _,   _,  X,       _,  50,   _,  _,    _,  _,   50,  _,},
+ {  _,  X,   X,  _,       _,  25,   _,  _,    _,  _,   25,  _,},
+ {  X,  _,   _,  X,       _,   0, 100,  _,    _, 100,   0,  _,},
+ {  _,  X,   X,  _,       _,   _,  75,  _,    _,  75,   _,  _,},
+ {  X,  _,   _,  X,       _,   _,  50,  _,    _,  50,   _,  _,},
+ {  _,  X,   X,  _,       _,   _,  25,  _,    _,  25,   _,  _,},
+ {  X,  _,   _,  X,       _,   _,   0,100,  100,   0,   _,  _,},
+ {  _,  X,   X,  _,       _,   _,   _, 75,   75,   _,   _,  _,},
+ {  X,  _,   _,  X,       _,   _,   _, 50,   50,   _,   _,  _,},
+ {  _,  X,   X,  _,       _,   _,   _, 25,   25,   _,   _,  _,},
+ {  X,  _,   _,  X,       _,   _,   _,  0,    0,   _,   _,  _,},
+ {  _,  X,   X,  _,       _,   _,   _,  _,    _,   _,   _,  _,},
+ {  X,  _,   _,  X,       _,   _,   _,100,  100,   _,   _,  _,},
+ {  _,  X,   X,  _,       _,   _,   _, 75,   75,   _,   _,  _,},
+ {  X,  _,   _,  X,       _,   _,   _, 50,   50,   _,   _,  _,},
+ {  _,  X,   X,  _,       _,   _,   _, 25,   25,   _,   _,  _,},
+ {  X,  _,   _,  X,       _,   _, 100,  0,    0, 100,   _,  _,},
+ {  _,  X,   X,  _,       _,   _,  25,  _,    _,  75,   _,  _,},
+ {  X,  _,   _,  X,       _,   _,  50,  _,    _,  50,   _,  _,},
+ {  _,  X,   X,  _,       _,   _,  75,  _,    _,  25,   _,  _,},
+ {  X,  _,   _,  X,       _, 100,   0,  _,    _,   0, 100,  _,},
+ {  _,  X,   X,  _,       _,  75,   _,  _,    _,  _,   75,  _,},
+ {  X,  _,   _,  X,       _,  50,   _,  _,    _,  _,   50,  _,},
+ {  _,  X,   X,  _,       _,  25,   _,  _,    _,  _,   25,  _,},
+ {  X,  _,   _,  X,     100,   0,   _,  _,    _,  _,    0,100,},
+ {  _,  X,   X,  _,      75,   _,   _,  _,    _,  _,   _,  75,},
+ {  X,  _,   _,  X,      50,   _,   _,  _,    _,  _,   _,  50,},
+ {  _,  X,   X,  _,      25,   _,   _,  _,    _,  _,   _,  25,},
+ {  X,  _,   _,  X,       0,   _,   _,  _,    _,  _,   _,   0,},
+ {  _,  X,   X,  _,       _,   _,   _,  _,    _,  _,   _,   _,},
  {  PROGRAM_ENDE},
-
-/* party */
- {  X,  _,  _,  _,      _,  X,  _,  _,       _,  _,  _,      X,  _,  _,},
- {  X,  _,  X,  _,      _,  _,  X,  _,       X,  _,  _,      _,  _,  X,},
- {  _,  X,  _,  _,      _,  X,  X,  _,       _,  X,  _,      X,  _,  _,},
- {  _,  _,  _,  X,      _,  _,  X,  _,       X,  _,  X,      _,  X,  _,},
- {  X,  X,  _,  X,      X,  X,  _,  _,       X,  _,  _,      X,  _,  _,},
- {  X,  _,  _,  _,      X,  _,  _,  _,       _,  _,  X,      _,  X,  X,},
- {  _,  _,  X,  _,      _,  X,  _,  X,       X,  _,  _,      X,  X,  X,},
- {  X,  X,  _,  X,      X,  _,  _,  _,       _,  _,  X,      _,  _,  _,},
- {  _,  X,  X,  X,      _,  X,  _,  X,       _,  X,  X,      X,  _,  _,},
- {  PROGRAM_ENDE},
-
-
-
- { MODEL_WECHSEL },
-  
- 
-/*
-** Modell 2, 6 LEDs vorne, 6 hinten
-*/
-
- {  90,  90, },
- {  PROGRAM_ENDE},
- 
-/* normal on */
- {  _,  70, 40,     40, 70,  _,      _, 40, 40,     40, 40, _,},
- {  PROGRAM_ENDE},
-
-/* normal on, waving headlights */
- {  _,  10, 50,     70, 30,  _,       _, 40, 40,        40, 40,  _,},
- {  _,  20, 60,     60, 40,  _,       _, 45, 45,        45, 45,  _,},
- {  _,  30, 70,     50, 50,  _,       _, 50, 50,        50, 50,  _,},
- {  _,  40, 60,     40, 60,  _,       _, 55, 55,        55, 55,  _,},
- {  _,  50, 50,     30, 70,  _,       _, 60, 60,        60, 60,  _,},
- {  _,  60, 40,     20, 60,  _,       _, 65, 65,        65, 65,  _,},
- {  _,  70, 30,     10, 50,  _,       _, 70, 70,        70, 70,  _,},
- {  _,  60, 20,     20, 40,  _,       _, 65, 65,        65, 65,  _,},
- {  _,  50, 10,     30, 30,  _,       _, 60, 60,        60, 60,  _,},
- {  _,  40, 20,     40, 20,  _,       _, 55, 55,        55, 55,  _,},
- {  _,  30, 30,     50, 10,  _,       _, 50, 50,        50, 50,  _,},
- {  _,  20, 40,     60, 20,  _,       _, 45, 45,        45, 45,  _,},
- {  PROGRAM_ENDE},
-
-/* full on */
- {  X,  X,  X,      X,  X,  X,       X,  X,  X,      X,  X,  X,},
- {  PROGRAM_ENDE},
-
-/* flash */
- {  X,   X,  X,      X,  X,  X,        X, X,  X,      X,  X,  X,},
- {  X,   5,  5,      5,  5,  X,        X, X,  X,      X,  X,  X,},
- {  _,   X,  X,      X,  X,  _,        _, X,  X,      X,  X,  _,},
- {  _,   5,  5,      5,  5,  _,        _, X,  X,      X,  X,  _,},
- {  _,   5,  5,      5,  5,  _,        _, X,  X,      X,  X,  _,},
- {  X,   5,  5,      5,  5,  X,        X, X,  X,      X,  X,  X,},
- {  X,   5,  5,      5,  5,  X,        X, X,  X,      X,  X,  X,},
- {  _,   5,  5,      5,  5,  _,        _, X,  X,      X,  X,  _,},
- {  _,   5,  5,      5,  5,  _,        _, X,  X,      X,  X,  _,},
- {  _,   5,  5,      5,  5,  _,        _, X,  X,      X,  X,  _,},
- {  PROGRAM_ENDE},
-
-/* party */
- {  X,  _,  _,      _,  X,  _,       _,  _,  _,      X,  _,  _,},
- {  X,  _,  _,      _,  _,  _,       X,  _,  _,      _,  _,  X,},
- {  _,  X,  _,      _,  X,  _,       _,  X,  _,      X,  _,  _,},
- {  _,  _,  X,      _,  _,  _,       X,  _,  X,      _,  X,  _,},
- {  X,  X,  X,      X,  X,  _,       X,  _,  _,      X,  _,  _,},
- {  X,  _,  _,      X,  _,  _,       _,  _,  X,      _,  X,  X,},
- {  _,  _,  _,      _,  X,  X,       X,  _,  _,      X,  X,  X,},
- {  X,  X,  X,      X,  _,  _,       _,  _,  X,      _,  _,  _,},
- {  _,  X,  X,      _,  X,  X,       _,  X,  X,      X,  _,  _,},
- {  PROGRAM_ENDE},
- 
 
  {FIN}
 
@@ -182,9 +148,7 @@ const uint8_t leds[][PIN_ANZAHL] PROGMEM = {
 * Es ist darauf zu achten, dass nur Pin's, welche nicht für das Lichprogramm
 * als Backfire oder für Signale vom Empfänger genutzt werden eingetragen werden.
 */
-const uint8_t led_pin_brakelights[] = { A2, A3 };
-
-#define BACKFIRE_PIN A5
+const uint8_t led_pin_brakelights[] = { A2, A3, A4 };
 
 /*
 * Hier werden die Pin-Nummern
@@ -193,10 +157,10 @@ const uint8_t led_pin_brakelights[] = { A2, A3 };
 * Es ist darauf zu achten, dass nur Pin's, welche nicht für das Lichprogramm,
 * als Bremslicht oder für Signale vom Empfänger genutzt werden eingetragen werden.
 */
-const uint8_t led_pin_backfire[] = { A4, A5 };
+const uint8_t led_pin_backfire[] = { 12, 13 };
 
 // Die Signalwerte, die der Empfaenger fuer mindest und maximal Wert uebermittelt.
-#define RECIEVER_MIN 1078
+#define RECIEVER_MIN 1378
 #define RECIEVER_MAX 1885
 
 // Zeitraum in Millisekunden. Dieser wird verwendet um festzulegen ab welcher Dauer und wie Lightmashine
@@ -213,8 +177,8 @@ const uint8_t led_pin_backfire[] = { A4, A5 };
 #define SWITCH_TYPE 2
 
 uint8_t modelSelectPins[] = {NICHT_DA};
-uint8_t led_pin_mapping_2[PIN_ANZAHL] =
- {12,10,11,     6, 9, 13,    2, 3, 4,         7, 5, 8,   NICHT_DA, NICHT_DA};
+uint8_t led_pin_mapping_2[PIN_ANZAHL] = {};
+// {12,10,11,     6, 9, 13,    2, 3, 4,         7, 5, 8,   NICHT_DA, NICHT_DA};
 // {12,10,NICHT_DA, NICHT_DA, NICHT_DA, NICHT_DA,  NICHT_DA, NICHT_DA, NICHT_DA, NICHT_DA, NICHT_DA, NICHT_DA,   NICHT_DA, NICHT_DA};
 
 uint8_t led_pin_mapping_3[PIN_ANZAHL] = { };
