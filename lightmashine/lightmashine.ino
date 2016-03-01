@@ -62,7 +62,7 @@ ThrottleChannel *throttle = new ThrottleChannel(THROTTLE_PIN,
 
 Brakelight brakelight(led_pin_brakelights, (uint8_t)ARRAY_LENGHT(led_pin_brakelights));
 
-Backfire backfire(led_pin_backfire, (uint8_t)ARRAY_LENGHT(led_pin_backfire));
+Backfire backfire(led_pin_backfire, (uint8_t)ARRAY_LENGHT(led_pin_backfire), 50);
 
 StandbyWatcher standbyWatcher(STANDBY_WAIT_TIME);
 
