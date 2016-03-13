@@ -52,12 +52,12 @@ int frame = -1;
 *********************          Setup      *******************************************
 ************************************************************************************/
 
-EepromAdapter *eepromAdapter = new EepromAdapter();
-RecieverChannel *reciever = new RecieverChannel(SIG_PIN, RECIEVER_MIN, RECIEVER_MAX);
-ThrottleChannel *throttle = new ThrottleChannel(THROTTLE_PIN,
-                                                eepromAdapter->getMinThrottle(),
-                                                eepromAdapter->getMaxThrottle(),
-                                                eepromAdapter->getNeutralThrottle()
+EepromAdapter eepromAdapter = EepromAdapter();
+RecieverChannel reciever = RecieverChannel(SIG_PIN, RECIEVER_MIN, RECIEVER_MAX);
+ThrottleChannel throttle = ThrottleChannel(THROTTLE_PIN,
+                                                eepromAdapter.getMinThrottle(),
+                                                eepromAdapter.getMaxThrottle(),
+                                                eepromAdapter.getNeutralThrottle()
                                                 );
 
 Brakelight brakelight(led_pin_brakelights, (uint8_t)ARRAY_LENGHT(led_pin_brakelights));
@@ -81,12 +81,12 @@ void setup() {
   State *programSelectStateSource;
   State *powerStateSource;
   if (SWITCH_TYPE == 1) {
-    programSelectStateSource = new StateFromLeverUp(reciever, ACTIVATE_PERIOD);
-    powerStateSource = new StateFromLeverDown(reciever, ACTIVATE_PERIOD);
+    programSelectStateSource = new StateFromLeverUp(&(reciever), ACTIVATE_PERIOD);
+    powerStateSource = new StateFromLeverDown(&(reciever), ACTIVATE_PERIOD);
   }
   if (SWITCH_TYPE == 2) {
-    programSelectStateSource = new StateFromButton(reciever, LESS_THAN, ACTIVATE_PERIOD);
-    powerStateSource = new StateFromButton(reciever, GRATER_THAN, ACTIVATE_PERIOD);
+    programSelectStateSource = new StateFromButton(&(reciever), LESS_THAN, ACTIVATE_PERIOD);
+    powerStateSource = new StateFromButton(&(reciever), GRATER_THAN, ACTIVATE_PERIOD);
   }
   lightProgramSelect = new Counter(programSelectStateSource, programCount);
   powerState = new FlagState(powerStateSource, START_WITH_LIGHT_ON);
@@ -95,10 +95,10 @@ void setup() {
   
   resetLedState();
 
-  if(!eepromAdapter->holdsReasonableValues()){
+  if(!eepromAdapter.holdsReasonableValues()){
 
     // somehow it's not working when passing ledState and then try to ledState[number]->set(myValue)
-    ThrottleCalibrator calibrator = ThrottleCalibrator(throttle, eepromAdapter, led_pin_mapping, PIN_ANZAHL);
+    ThrottleCalibrator calibrator = ThrottleCalibrator(&(throttle), &(eepromAdapter), led_pin_mapping, PIN_ANZAHL);
     calibrator.calibrate();
   }
 
@@ -107,8 +107,8 @@ void setup() {
   }
 
 
-    DEBUG("Endpoints:\nmin Throttle: "+ String(throttle->getMinValue())+"\nmaxThrottle: "+String(throttle->getMaxValue())+"\nneutralThrottle: "+String(throttle->getNeutralValue()));
-    DEBUG("Stored in Eeprom:\nmin Throttle: "+ String(eepromAdapter->getMinThrottle())+"\nmaxThrottle: "+String(eepromAdapter->getMaxThrottle())+"\nneutralThrottle: "+String(eepromAdapter->getNeutralThrottle()));
+    DEBUG("Endpoints:\nmin Throttle: "+ String(throttle.getMinValue())+"\nmaxThrottle: "+String(throttle.getMaxValue())+"\nneutralThrottle: "+String(throttle.getNeutralValue()));
+    DEBUG("Stored in Eeprom:\nmin Throttle: "+ String(eepromAdapter.getMinThrottle())+"\nmaxThrottle: "+String(eepromAdapter.getMaxThrottle())+"\nneutralThrottle: "+String(eepromAdapter.getNeutralThrottle()));
 
 }
 
@@ -246,9 +246,9 @@ void loop() {
 
 
 
-  if (throttle->hasNewValue()) {
+  if (throttle.hasNewValue()) {
     // So let's read the new value
-    throttleSignal = throttle->getValue();
+    throttleSignal = throttle.getValue();
 
     standbyWatcher.update(throttleSignal);
 
@@ -275,7 +275,7 @@ void loop() {
 
   counter++;
   currentIterations--;
-  reciever->read();
+  reciever.read();
   if (currentIterations == 0) {
     globalNow = millis();
     currentIterations = iterationsToMatchUpdatePeriod;
@@ -295,8 +295,8 @@ void loop() {
       }
 
       DEBUG(String(counter) + " ips, " + String(iterationsToMatchUpdatePeriod) + " iterations per update, update period = " + String(globalNow - lastUpdate));
-      DEBUG("Thottle signal in percent:"+String(throttle->getValue()));
-      DEBUG("Thottle signal:"+String(throttle->getRawValue()));
+      DEBUG("Thottle signal in percent:"+String(throttle.getValue()));
+      DEBUG("Thottle signal:"+String(throttle.getRawValue()));
       counter = 0;
     }
 
