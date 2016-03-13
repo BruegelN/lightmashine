@@ -49,7 +49,7 @@ class ThrottleChannel {
                     uint16_t neutralValue
                     );
 
-    const uint8_t getAttachedPin();
+     uint8_t getAttachedPin();
 
     /*
     * This will only return the measured time in microseconds.

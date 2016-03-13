@@ -24,7 +24,7 @@ void ThrottleChannel::ThrottleInterrupt::serviceRoutine(){
   		}else{
   			// else it just finished so we can calculate the signal time by substract the actual time with the start time
     		ownerChannel->_tmpValue = (uint16_t)(micros() - ownerChannel->_timeRising);
-    	} 
+    	}
 
 			ownerChannel->_hasNewValue = true;
 
@@ -41,9 +41,9 @@ _pin(pin)
 {
 	ThrottleInterrupt::record(this);
 
-	_value = NULL;
-	_tmpValue = NULL;
-	_timeRising = NULL;
+	_value = 0;
+	_tmpValue = 0;
+	_timeRising = 0;
 	_hasNewValue = false;
 	_minValue = minValue;
 	_maxValue = maxValue;
@@ -65,7 +65,7 @@ _pin(pin)
 	sei();
 }
 
-const uint8_t ThrottleChannel::getAttachedPin() {
+ uint8_t ThrottleChannel::getAttachedPin() {
 
 	return _pin;
 
