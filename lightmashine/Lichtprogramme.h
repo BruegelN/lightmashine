@@ -207,7 +207,13 @@ const uint8_t standby_leds[][PIN_ANZAHL] PROGMEM = {
 */
 const uint8_t led_pin_brakelights[] = { A2, A3 };
 
-#define BACKFIRE_PIN A5
+
+
+/*
+* Gaswert ab dem Backfire beginnt.
+* In Prozent, 0-100%
+*/
+#define BACKFIRE_START 50
 
 /*
 * Hier werden die Pin-Nummern
