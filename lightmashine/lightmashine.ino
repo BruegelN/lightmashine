@@ -23,6 +23,7 @@
 #include "ThrottleCalibrator.h"
 #include "Brakelight.h"
 #include "Backfire.h"
+#include "StandbyWatcher.h"
 
 
 #define MAX_PROGRAMS 50
@@ -62,6 +63,8 @@ ThrottleChannel *throttle = new ThrottleChannel(THROTTLE_PIN,
 Brakelight brakelight(led_pin_brakelights, (uint8_t)ARRAY_LENGHT(led_pin_brakelights));
 
 Backfire backfire(led_pin_backfire, (uint8_t)ARRAY_LENGHT(led_pin_backfire));
+
+StandbyWatcher standbyWatcher(STANDBY_WAIT_TIME);
 
 int8_t throttleSignal = 0;
 
@@ -243,22 +246,31 @@ void loop() {
 
 
 
-  if(throttle->hasNewValue()){
-      // So let's read the new value
-      throttleSignal = throttle->getValue();
+  if (throttle->hasNewValue()) {
+    // So let's read the new value
+    throttleSignal = throttle->getValue();
 
-      if(throttleSignal < 0){
-        // braking if throttle signal is negativ
-        brakelight.turnOn();
+    standbyWatcher.update(throttleSignal);
 
+    if (throttleSignal < 0) {
+      // braking if throttle signal is negativ
+      brakelight.turnOn();
 
-      }else{
-        // obvious we're not braking
-        brakelight.turnOff();
-        // TODO make sure that the LED will be turned off everytime!
-        backfire.checkForActivation(throttleSignal);
+    } else {
+      // obvious we're not braking
+      brakelight.turnOff();
+      // TODO make sure that the LED will be turned off everytime!
+      backfire.checkForActivation(throttleSignal);
 
+      if (standbyWatcher.hasChanged())
+      {
+        if (!standbyWatcher.isStanby())
+        {
+          frame = standbyWatcher.getOldFrame();
+        }
       }
+
+    }
   }
 
   counter++;
@@ -270,6 +282,18 @@ void loop() {
 
     if ((globalNow - lastTime) > 1000) {
       lastTime = globalNow;
+
+      if (standbyWatcher.hasChanged())
+      {
+        if (standbyWatcher.isStanby())
+        {
+          // TODO Change to Standby LED mode
+          standbyWatcher.setOldFrame(frame);
+          frame = 0;
+          DEBUG("STANBY");
+        }
+      }
+
       DEBUG(String(counter) + " ips, " + String(iterationsToMatchUpdatePeriod) + " iterations per update, update period = " + String(globalNow - lastUpdate));
       DEBUG("Thottle signal in percent:"+String(throttle->getValue()));
       DEBUG("Thottle signal:"+String(throttle->getRawValue()));
@@ -373,3 +397,10 @@ void copyFrameToLedState() {
 uint8_t readLeds(int lineNr, int rowNr) {
   return pgm_read_byte_near(&(leds[lineNr][rowNr]));
 }
+/*
+uint8_t readStandbyLeds(int lineNr, int rowNr) {
+  return pgm_read_byte_near(&(stanbyLeds[lineNr][rowNr]));
+}
+
+void setStandbyLeds()
+*/

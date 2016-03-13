@@ -163,6 +163,29 @@ const uint8_t leds[][PIN_ANZAHL] PROGMEM = {
 
 };
 
+// B  B  w  w       w  w  B  B     A  B  I           I  B  A
+// l  l  e  e       e  e  l  l     u  l  n           n  l  u
+// i  a  i  i       i  i  a  i     s  i  n           n  i  s
+// n  u  s  s       s  s  u  n     s  n  e           e  n  s
+// k     s  s       s  s     k     e  k  n           n  k  e
+// e                         e     n  e                 e  n
+// r                         r        r                 r
+
+// Licht-Programme
+const uint8_t standby_leds[][PIN_ANZAHL] PROGMEM = {
+ {  X,  _,  _,  _,      _,  _,  _,  X,       _,  X,  _,      _,  X,  _,},
+ {  X,  _,  _,  _,      _,  _,  _,  X,       _,  X,  _,      _,  X,  _,},
+ {  X,  _,  _,  _,      _,  _,  _,  X,       _,  X,  _,      _,  X,  _,},
+ {  X,  _,  _,  _,      _,  _,  _,  X,       _,  X,  _,      _,  X,  _,},
+ {  X,  _,  _,  _,      _,  _,  _,  X,       _,  X,  _,      _,  X,  _,},
+ {  _,  _,  _,  _,      _,  _,  _,  _,       _,  _,  _,      _,  _,  _,},
+ {  _,  _,  _,  _,      _,  _,  _,  _,       _,  _,  _,      _,  _,  _,},
+ {  _,  _,  _,  _,      _,  _,  _,  _,       _,  _,  _,      _,  _,  _,},
+ {  _,  _,  _,  _,      _,  _,  _,  _,       _,  _,  _,      _,  _,  _,},
+ {  _,  _,  _,  _,      _,  _,  _,  _,       _,  _,  _,      _,  _,  _,},
+ {  PROGRAM_ENDE},
+};
+
 
 
 
@@ -194,6 +217,13 @@ const uint8_t led_pin_brakelights[] = { A2, A3 };
 * als Bremslicht oder fuer Signale vom Empfänger genutzt werden eingetragen werden.
 */
 const uint8_t led_pin_backfire[] = { A4, A5 };
+
+/*
+* Zeitraum in Millisekunden.
+* Dies ist die Zeit, welcher der Gaskanal mindestens in Neutralstellung verharren muss,
+* bevor Standby aktiviert wird.
+*/
+#define STANDBY_WAIT_TIME 5000
 
 // Die Signalwerte, die der Empfaenger fuer mindest und maximal Wert uebermittelt.
 #define RECIEVER_MIN 1078
