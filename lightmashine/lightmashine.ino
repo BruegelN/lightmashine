@@ -46,7 +46,7 @@ int frame = -1;
 #define DEBUG(X)
 #endif
 
-// Um einfach die Größe unabhängig vom Datentyp zu erhalten
+// Um einfach die Groesse unabhaengig vom Datentyp zu erhalten
 #define ARRAY_LENGHT(X)  (sizeof(X)/sizeof(X[0]))
 
 /************************************************************************************

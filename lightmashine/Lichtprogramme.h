@@ -197,8 +197,8 @@ const uint8_t standby_leds[][PIN_ANZAHL] PROGMEM = {
 * Hier werden die Pin-Nummern
 * fuer die LED's, welche spaeter als Bremslicht
 * geschaltet werden sollen eingetragen, jeweils durch Komma getrennt.
-* Es ist darauf zu achten, dass nur Pin's, welche nicht für das Lichprogramm
-* als Backfire oder fuer Signale vom Empfänger genutzt werden eingetragen werden.
+* Es ist darauf zu achten, dass nur Pin's, welche nicht fuer das Lichprogramm
+* als Backfire oder fuer Signale vom Empfaenger genutzt werden eingetragen werden.
 */
 const uint8_t led_pin_brakelights[] = { A2, A3 };
 
@@ -207,8 +207,8 @@ const uint8_t led_pin_brakelights[] = { A2, A3 };
 * Hier werden die Pin-Nummern
 * fuer die LED's, welche spaeter als Backfire/ Anti-Lag
 * geschaltet werden sollen eingetragen, jeweils durch Komma getrennt.
-* Es ist darauf zu achten, dass nur Pin's, welche nicht für das Lichprogramm,
-* als Bremslicht oder fuer Signale vom Empfänger genutzt werden eingetragen werden.
+* Es ist darauf zu achten, dass nur Pin's, welche nicht fuer das Lichprogramm,
+* als Bremslicht oder fuer Signale vom Empfaenger genutzt werden eingetragen werden.
 */
 const uint8_t led_pin_backfire[] = { A4, A5 };
 

@@ -51,7 +51,7 @@
 
 
 /*
-* VORSICHT: Diese Einstellung koenne ggf. zu einer Fehlfunktion führen.
+* VORSICHT: Diese Einstellung koenne ggf. zu einer Fehlfunktion fuehren.
 */
 
 // Dies ist die Empfindlichkeit fuer den Gaskanal.
