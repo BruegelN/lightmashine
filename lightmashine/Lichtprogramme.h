@@ -193,11 +193,6 @@ const uint8_t standby_leds[][PIN_ANZAHL] PROGMEM = {
 ** Erweiterte Einstellungen
 */
 
-// Der Pin, an dem der Empfaenger angeschlossen ist.
-#define SIG_PIN A0
-
-#define THROTTLE_PIN A1
-
 /*
 * Hier werden die Pin-Nummern
 * fuer die LED's, welche spaeter als Bremslicht
@@ -208,13 +203,6 @@ const uint8_t standby_leds[][PIN_ANZAHL] PROGMEM = {
 const uint8_t led_pin_brakelights[] = { A2, A3 };
 
 
-
-/*
-* Gaswert ab dem Backfire beginnt.
-* In Prozent, 0-100%
-*/
-#define BACKFIRE_START 50
-
 /*
 * Hier werden die Pin-Nummern
 * fuer die LED's, welche spaeter als Backfire/ Anti-Lag
@@ -224,29 +212,6 @@ const uint8_t led_pin_brakelights[] = { A2, A3 };
 */
 const uint8_t led_pin_backfire[] = { A4, A5 };
 
-/*
-* Zeitraum in Millisekunden.
-* Dies ist die Zeit, welcher der Gaskanal mindestens in Neutralstellung verharren muss,
-* bevor Standby aktiviert wird.
-*/
-#define STANDBY_WAIT_TIME 5000
-
-// Die Signalwerte, die der Empfaenger fuer mindest und maximal Wert uebermittelt.
-#define RECIEVER_MIN 1078
-#define RECIEVER_MAX 1885
-
-// Zeitraum in Millisekunden. Dieser wird verwendet um festzulegen ab welcher Dauer und wie Lightmashine
-// den ueber Funke uebertragenen Befehl interpretiert.
-// Bei Hebel-Steuerung: Hebel muss laenger als dieser Wert in Position gehalten werden, damit 
-//                      Lightmashine das als Befehl erkennt.
-// Bei Knopf-Steuerung: Knopf laenger als dieser Wert gedrueckt: Licht an/aus. Knopf kuerzer als der Wert
-//                      gedrueckt: naechstes Lichtprogramm.
-#define ACTIVATE_PERIOD 500
-
-// Verwendeter Funke-Umschalter.
-// 1 - fuer Umschalten per Hebel
-// 2 - fuer Umschalten per Knopf
-#define SWITCH_TYPE 2
 
 uint8_t modelSelectPins[] = {NICHT_DA};
 uint8_t led_pin_mapping_2[PIN_ANZAHL] =

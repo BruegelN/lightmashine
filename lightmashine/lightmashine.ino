@@ -3,6 +3,7 @@
 
 #include "constants.h"
 #include <avr/pgmspace.h>
+#include "rc_config.h"
 #include "Lichtprogramme.h"
 
 /*

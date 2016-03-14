@@ -3,10 +3,6 @@
 
 #include "Arduino.h"
 
-
-// neutral + - this value is still considered neutral e.g. in isBraking-method
-#define THROTTLE_NEUTRAL_RANGE 15
-
 /*
 * The ThrottleChannel class allows to get all necessary information
 * about the real signal from the radio's throttle channel.

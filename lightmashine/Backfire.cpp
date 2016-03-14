@@ -1,4 +1,5 @@
 #include "Backfire.h"
+#include "rc_config.h" /* defines BACKFIRE_INTENSITY */
 
 Backfire::Backfire(const uint8_t *pBackfireArray, const uint8_t backfireLedCount, const uint8_t startBackfire):
 _pBackfireArray(pBackfireArray),
@@ -28,7 +29,7 @@ void Backfire::checkForActivation(int8_t value){
     if( _firstLed == randBackfireDelay || _firstLed >= 30)
     {
       _firstLed = 0;
-      randBackfireDelay = random(30);
+      randBackfireDelay = random(BACKFIRE_INTENSITY);
       for(uint8_t i = 0; i < _backfireLedCount; i++)
       {
         digitalWrite(_pBackfireArray[i],HIGH);

@@ -1,6 +1,7 @@
 #include "ThrottleChannel.h"
 
 #include <avr/interrupt.h>
+#include "rc_config.h" /* defines THROTTLE_NEUTRAL_RANGE */
 
 
 // To prevent linker errors we need set it to '0'
