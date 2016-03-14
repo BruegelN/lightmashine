@@ -17,17 +17,20 @@
 class Backfire {
   public:
     Backfire(const uint8_t *pBackfireArray, const uint8_t backfireLedCount, const uint8_t startBackfire);
-    void checkForActivation(int8_t valuePercentage);
+
+    /*
+    * Need's to be called with every new throttle value.
+    * Will flash the Backfire-Led's automatically.
+    *
+    * BACKFIRE_INTENSITY: from rc_config.h is used here.
+    * param[in] uint8_t throttleValuePercent
+    */
+    void checkForActivation(int8_t throttleValuePercentage);
 
   private:
     const uint8_t *_pBackfireArray;
     const uint8_t _backfireLedCount;
     const uint8_t _startBackfire;
-    // for the old values
-    int8_t _history[10];
-    uint8_t _firstLed;
-
-
 
 };
 

@@ -4,8 +4,6 @@
 Backfire::Backfire(const uint8_t *pBackfireArray, const uint8_t backfireLedCount, const uint8_t startBackfire):
 _pBackfireArray(pBackfireArray),
 _backfireLedCount(backfireLedCount),
-_history {0},
-_firstLed(0),
 _startBackfire(startBackfire)
 {
   for(uint8_t i = 0; i < _backfireLedCount; i++) {
@@ -16,25 +14,27 @@ _startBackfire(startBackfire)
 
 }
 
-void Backfire::checkForActivation(int8_t value){
+void Backfire::checkForActivation(int8_t throttleValuePercentage){
   for(uint8_t i = 0; i < _backfireLedCount; i++)
   {
     digitalWrite(_pBackfireArray[i],LOW);
   }
 
 
-  if(value >= _startBackfire)
+  if(throttleValuePercentage >= _startBackfire)
   {
     static uint8_t randBackfireDelay;
-    if( _firstLed == randBackfireDelay || _firstLed >= 30)
+    static uint8_t timeToBackfire;
+
+    if( timeToBackfire == randBackfireDelay || timeToBackfire >= BACKFIRE_INTENSITY)
     {
-      _firstLed = 0;
+      timeToBackfire = 0;
       randBackfireDelay = random(BACKFIRE_INTENSITY);
       for(uint8_t i = 0; i < _backfireLedCount; i++)
       {
         digitalWrite(_pBackfireArray[i],HIGH);
       }
     }
-    _firstLed++;
+    timeToBackfire++;
   }
 }
