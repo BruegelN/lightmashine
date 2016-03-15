@@ -28,7 +28,9 @@ bool StandbyWatcher::isStanby(void)
   {
     if(!_standby)
     {
-      _standby = false;
+      // if haven't been in standy-mode before
+      // set _hasChanged to true to check it in hasChanged().
+      _standby = true;
       _hasChanged = true;
     }
     else
