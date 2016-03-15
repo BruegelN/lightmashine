@@ -251,6 +251,7 @@ void loop() {
     // So let's read the new value
     throttleSignal = throttle.getValue();
 
+    // alway give new values to StandbyWatcher
     standbyWatcher.update(throttleSignal);
 
     if (throttleSignal < 0) {
@@ -262,6 +263,7 @@ void loop() {
       brakelight.turnOff();
       // because we're moving forward we should check if it's time for backfire
       backfire.checkForActivation(throttleSignal);
+    }
 
     if (standbyWatcher.hasChanged())
     {
