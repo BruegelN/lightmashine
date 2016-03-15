@@ -260,7 +260,7 @@ void loop() {
     } else {
       // obvious we're not braking
       brakelight.turnOff();
-      // TODO make sure that the LED will be turned off everytime!
+      // because we're moving forward we should check if it's time for backfire
       backfire.checkForActivation(throttleSignal);
 
     if (standbyWatcher.hasChanged())
