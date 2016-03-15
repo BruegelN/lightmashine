@@ -19,11 +19,7 @@ void StandbyWatcher::update(int8_t throttleValue)
     _lastTimeMoved = millis();
 
   }
-}
 
-
-bool StandbyWatcher::isStanby(void)
-{
   if((millis()-_lastTimeMoved) >= _standbyTimeOut)
   {
     if(!_standby)
@@ -50,11 +46,13 @@ bool StandbyWatcher::isStanby(void)
     {
       _hasChanged = false;
     }
-
   }
+}
 
+
+bool StandbyWatcher::isStandby(void)
+{
   return _standby;
-
 }
 
 

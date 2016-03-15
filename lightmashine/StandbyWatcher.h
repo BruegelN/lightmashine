@@ -26,7 +26,7 @@ class StandbyWatcher{
     // Set a new throttle value.
     void update(int8_t throttleValue);
 
-    bool isStanby(void);
+    bool isStandby(void);
     bool hasChanged(void);
 
     // Set the current(thus old) frame before switch to standby.
