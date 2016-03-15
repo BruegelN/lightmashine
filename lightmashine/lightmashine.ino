@@ -284,17 +284,6 @@ void loop() {
     if ((globalNow - lastTime) > 1000) {
       lastTime = globalNow;
 
-      if (standbyWatcher.hasChanged())
-      {
-        if (standbyWatcher.isStanby())
-        {
-          // TODO Change to Standby LED mode
-          standbyWatcher.setOldFrame(frame);
-          frame = 0;
-          DEBUG("STANBY");
-        }
-      }
-
       DEBUG(String(counter) + " ips, " + String(iterationsToMatchUpdatePeriod) + " iterations per update, update period = " + String(globalNow - lastUpdate));
       DEBUG("Thottle signal in percent:"+String(throttle.getValue()));
       DEBUG("Thottle signal:"+String(throttle.getRawValue()));
