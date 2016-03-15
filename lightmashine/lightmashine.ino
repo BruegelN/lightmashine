@@ -263,12 +263,20 @@ void loop() {
       // TODO make sure that the LED will be turned off everytime!
       backfire.checkForActivation(throttleSignal);
 
-      if (standbyWatcher.hasChanged())
+    if (standbyWatcher.hasChanged())
+    {
+      DEBUG("standby state changed");
+      if (standbyWatcher.isStandby())
       {
-        if (!standbyWatcher.isStanby())
-        {
-          frame = standbyWatcher.getOldFrame();
-        }
+        // TODO Change to Standby LED mode
+        //standbyWatcher.setOldFrame(frame);
+        //frame = 0;
+        DEBUG("standby");
+      }
+      else
+      {
+        //frame = standbyWatcher.getOldFrame();
+        DEBUG("no");
       }
 
     }
